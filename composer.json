@@ -4,11 +4,11 @@
     "license": "proprietary",
     "authors": [
         {
-            "email": "Fidesio\Donation",
+            "email": "audreyroch.houssou@gmail.com",
             "name": "Houssou audrey-roch"
         }
     ],
-    "version": "1.2.2",
+    "version": "1.0.0",
     "type": "magento2-module",
     "minimum-stability": "dev",
     "require": {},
