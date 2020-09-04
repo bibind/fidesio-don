@@ -1,6 +1,40 @@
 # fidesio-don
 module magento fidesio for donation in checkout page
 
+###Installation du module
+
+private repository packagist
+Mettre dans votre composer.json de votre projet Magento2 (si vous avez déja repositories, le mettre dans ce tableau) :
+ "repositories" :[   {
+            "type": "composer",
+            "url": "https://repo.packagist.com/bibind/"
+        },
+        {
+            "packagist.org": false
+        }  
+]
+et dans la partie require :
+
+        "fidesio/module-donation": "dev-master"
+
+puis lancer les commande :
+composer update mirror
+composer update 
+
+Activer le module :
+Se mettre dans le repertoir racine de Magento
+
+./bin/magento setup:upgrade
+./bin/magento setup:di:compile
+./bin/magento setup:static-content:deploy
+
+Verifier que votre module est bien activer:
+./bin/magento module:status
+
+------------------
+
+
+
 Les problématiques du test :
 Nous avons un module experius/module-donationproduct (https://github.com/experius/Magento-2-Module-Experius-DonationProduct)
 qui permet de réaliser ces fonctionnalités mais en créeant des type de produit donation qui seront ajouter au panier, à la commande et la facture si le produit à été validé .
