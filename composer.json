@@ -1,7 +1,13 @@
 {
     "name": "fidesio/module-donation",
     "description": "",
-    "license": "AGPL-3.0-only",
+    "config": {
+        "sort-packages": true
+    },
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
     "authors": [
         {
             "email": "audreyroch.houssou@gmail.com",
@@ -10,7 +16,6 @@
     ],
     "version": "1.0.0",
     "type": "magento2-module",
-    "minimum-stability": "dev",
     "require": {},
     "autoload": {
         "files": [
