@@ -1,3 +1,21 @@
+<<<<<<< HEAD
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © Experius. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <fidesio_donation>
+            <general>
+                <enabled>1</enabled>
+                <fixed_amounts>5,10,15,25,50</fixed_amounts>
+            </general>
+        </fidesio_donation>
+    </default>
+=======
 <?xml version="1.0" ?>
 <!--
 /**
@@ -29,4 +47,5 @@
             </group>
         </fidesio_donation>
     </default>
+>>>>>>> 54b879e416599ca04880f4c91613b8a8fcc40f9a
 </config>
