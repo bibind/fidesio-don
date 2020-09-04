@@ -14,7 +14,7 @@
             "name": "Houssou audrey-roch"
         }
     ],
-    "version": "1.0.0",
+    "version": "v0.1-alpha",
     "type": "magento2-module",
     "require": {},
     "minimum-stability": "dev",
