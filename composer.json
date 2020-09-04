@@ -16,7 +16,9 @@
     ],
     "version": "v0.1-alpha",
     "type": "magento2-module",
-    "require": {},
+    "require": {
+        "experius/module-donationproduct":"~1.0.0"
+    },
     "minimum-stability": "dev",
     "autoload": {
         "files": [
