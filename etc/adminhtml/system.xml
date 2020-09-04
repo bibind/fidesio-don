@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © Experius. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="fidesio_donation" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+            <label>Fidesio Donation </label>
+            <tab>catalog</tab>
+            <resource>Fidesio_Donation::config_fidesio_donation</resource>
+            <group id="general" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>General</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Activé</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="fixed_amounts" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="11" translate="label" type="text">
+                    <label>Fixed Donation Amount</label>
+                    <comment>Liste de montant séparé par une virgule</comment>
+                </field>
+                <field id="donation_titre" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="12" translate="label" type="text">
+                    <label>Titre</label>
+                    <comment></comment>
+                </field>
+                <field id="description_donantion" translate="description" type="editor" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Description</label>
+                    <frontend_model>Fidesio\Donation\Block\Adminhtml\System\Config\Form\Field\Editor</frontend_model>
+                </field>
+
+            </group>
+            <group id="imagedonation" translate="label" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> Image donation</label>
+                <field id="imagedonation" type="image" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label></label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">fidesio/donation</upload_dir>
+                    <base_url type="media" scope_info="1">fidesio/donantion</base_url>
+                </field>
+            </group>
+
+        </section>
+    </system>
+</config>
