@@ -11,9 +11,7 @@
     "version": "1.0.0",
     "type": "magento2-module",
     "minimum-stability": "dev",
-    "require": {
-        "experius/module-donationproduct": "~1.0.0"
-    },
+    "require": {},
     "autoload": {
         "files": [
             "registration.php"
