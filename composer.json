@@ -1,0 +1,23 @@
+{
+    "name": "fidesio/module-donation",
+    "description": "",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email": "Fidesio\Donation",
+            "name": "Houssou audrey-roch"
+        }
+    ],
+    "version": "1.2.2",
+    "type": "magento2-module",
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Experius\\DonationProduct\\": ""
+        }
+    }
+}
