@@ -18,16 +18,8 @@
             </header>
 
                 <article
-                    class="fidesio-donation-product"
-                    data-title="<?php echo $item->getName(); ?>"
-                    data-description="<?php echo htmlspecialchars($item->getShortDescription()); ?>"
-                    data-imageurl="<?php echo $block->getImage($item, $imageDetailId)->getImageUrl(); ?>"
-                    data-productid="<?php echo $item->getId(); ?>"
-                    data-htmlvalidation="<?php echo $block->getHtmlValidationClasses($item); ?>"
-                    data-minimal-amount="<?php echo __('Choose your own Amount %1 (minimum %2)', $block->getCurrencySymbol(), $block->getMinimalDonationAmount($item)); ?>"
-                    data-addtocarturl="<?php echo $block->getAddToCartUrl($item); ?>">
-                    <a title="<?php echo $item->getName(); ?>" class="fidesio-donation-image-wrapper">
-                        <img src="<?php echo $block->getImage($item, $imageThumbnailId)->getImageUrl(); ?>" alt="<?php echo $item->getName(); ?>" class="fidesio-donation-product-image" />
+                      <a title="" class="fidesio-donation-image-wrapper">
+                        <img src="" alt="" class="fidesio-donation-product-image" />
                     </a>
                     <a class="fidesio-donation-product-tocart">
                         <?php echo __('I want to donate'); ?>
@@ -78,25 +70,12 @@
             "donation":
             {
                 "popupContainer":".fidesio-donation-modal",
-                "productSelector":".fidesio-donation-product",
-                "addToCartFormId":"#fidesio-donation-product-addtocart-form-<?php echo $block->getIdentifier(); ?>",
-                "modalClass":".fidesio-donation-modal",
-                "ajaxCart": <?php if ($block->isAjaxEnabled()) :
-?>true<?php
-else :
-?>false<?php
-endif; ?>,
                 "identifier": "<?php echo $block->getIdentifier(); ?>",
                 "inputRadioSelector": ".input-radio-amount-<?php echo $block->getIdentifier(); ?>",
-                "setAjaxRefreshOnSuccess": <?php if ($block->getAjaxRefreshOnSuccess()) :
-?>true<?php
-else :
-?>false<?php
-endif; ?>,
                 "setAjaxRefreshOnSuccessMsg": "<?php echo __('The page will be refreshed.') ?>"
             }
         }
     }
     </script>
-<?php endif; ?>
+
 
