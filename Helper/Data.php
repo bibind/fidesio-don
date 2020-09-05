@@ -33,32 +33,13 @@ use Magento\Store\Model\ScopeInterface;
 class Data extends AbstractHelper
 {
 
-    const DONATION_OPTION_CODE = 'donation_options';
+    const DONATION_CONFIGURATION_FIXED_AMOUNTS = 'fidesio_donation/general/fixed_amounts';
 
-    const DONATION_CONFIGURATION_MINIMAL_AMOUNT = 'experius_donation_product/general/minimal_amount';
+    const DONATION_CONFIGURATION_TITLE = 'fidesio_donation/general/donation_titre';
 
-    const DONATION_CONFIGURATION_MAXIMAL_AMOUNT = 'experius_donation_product/general/maximal_amount';
+    const DONATION_CONFIGURATION_DESCRIPTION = 'fidesio_donation/general/description_donantion';
 
-    const DONATION_CONFIGURATION_FIXED_AMOUNTS = 'experius_donation_product/general/fixed_amounts';
-
-    const DONATION_CONFIGURATION_PRODUCT_LIMIT_SIDEBAR = 'experius_donation_product/layout/sidebar_product_limit';
-
-    const DONATION_CONFIGURATION_PRODUCT_LIMIT_HOMEPAGE = 'experius_donation_product/layout/homepage_product_limit';
-
-    const DONATION_CONFIGURATION_PRODUCT_LIMIT_CART = 'experius_donation_product/layout/cart_product_limit';
-
-    const DONATION_CONFIGURATION_PRODUCT_LIMIT_CHECKOUT =  'experius_donation_product/layout/checkout_product_limit';
-
-    const DONATION_CONFIGURATION_LAYOUT_CHECKOUT_ENABLED =  'experius_donation_product/layout/checkout_enabled';
-
-    const DONATION_CONFIGURATION_LAYOUT_CHECKOUT_SIDEBAR_ENABLED =
-        'experius_donation_product/layout/checkout_sidebar_enabled';
-
-    const DONATION_CONFIGURATION_LAYOUT_SIDEBAR_ENABLED =  'experius_donation_product/layout/sidebar_enabled';
-
-    const DONATION_CONFIGURATION_LAYOUT_HOMEPAGE_ENABLED =  'experius_donation_product/layout/homepage_enabled';
-
-    const DONATION_CONFIGURATION_LAYOUT_CART_ENABLED =  'experius_donation_product/layout/cart_enabled';
+    const DONATION_CONFIGURATION_IMAGE = 'fidesio_donation/imagedonation/imagedonation';
 
     /**
      * @var StoreManagerInterface
@@ -80,93 +61,25 @@ class Data extends AbstractHelper
     }
 
     /**
-     * @param $optionJson
-     * @param $product
      * @return array
      */
-    public function optionsJsonToMagentoOptionsArray($optionJson, $product)
+    public function getDetailsBlockDonation()
     {
-        $options = [];
-
-        if (!$optionJson) {
-            return $options;
-        }
-
-        $donationOptions = json_decode($optionJson, true);
-
-        if (is_array($donationOptions)) {
-            foreach ($donationOptions as $name => $value) {
-                $label = $this->getLabelByName($name);
-
-                $options[] = [
-                    'label' => $label,
-                    'value' => $value,
-                    'print_value' => $label,
-                    'option_id' => '',
-                    'option_type' => '',
-                    'custom_view' => '',
-                    'option_value' => $value,
-                ];
-            }
-        }
-
-        return $options;
-    }
-
-    /**
-     * @param $name
-     * @return \Magento\Framework\Phrase
-     */
-    public function getLabelByName($name)
-    {
-        if ($name=='amount') {
-            return __('Donated Amount');
-        }
-        return $name;
-    }
-
-    /**
-     * @param $product
-     * @return int
-     */
-    public function getMinimalAmount($product)
-    {
-        if ($product->getExperiusDonationMinAmount()) {
-            return (int) $product->getExperiusDonationMinAmount();
-        }
-
-        $config = $this->scopeConfig->getValue(
-            self::DONATION_CONFIGURATION_MINIMAL_AMOUNT,
+        $detailsBlockDonation = [];
+        $detailsBlockDonation['title'] = $this->scopeConfig->getValue(
+            self::DONATION_CONFIGURATION_TITLE,
+            ScopeInterface::SCOPE_STORE
+        );
+        $detailsBlockDonation['description'] = $this->scopeConfig->getValue(
+            self::DONATION_CONFIGURATION_DESCRIPTION,
+            ScopeInterface::SCOPE_STORE
+        );
+        $detailsBlockDonation['image'] = $this->scopeConfig->getValue(
+            self::DONATION_CONFIGURATION_IMAGE,
             ScopeInterface::SCOPE_STORE
         );
 
-        if ($config) {
-            return (int) $config;
-        }
-
-        return 1;
-    }
-
-    /**
-     * @param $product
-     * @return int
-     */
-    public function getMaximalAmount($product)
-    {
-        if ($product->getExperiusDonationMaximalAmount()) {
-            return (int) $product->getExperiusDonationMaximalAmount();
-        }
-
-        $config = $this->scopeConfig->getValue(
-            self::DONATION_CONFIGURATION_MAXIMAL_AMOUNT,
-            ScopeInterface::SCOPE_STORE
-        );
-
-        if ($config) {
-            return (int) $config;
-        }
-
-        return 10000;
+        return $detailsBlockDonation;
     }
 
     /**
@@ -200,70 +113,9 @@ class Data extends AbstractHelper
         return (string) $this->storeManager->getStore()->getCurrentCurrency()->getCurrencySymbol();
     }
 
-    /**
-     * @param $blockName
-     * @return int
-     */
-    public function getLimitByBlockName($blockName)
-    {
-        $limit = $this->scopeConfig->getValue(
-            self::DONATION_CONFIGURATION_PRODUCT_LIMIT_CHECKOUT,
-            ScopeInterface::SCOPE_STORE
-        );
 
-        switch ($blockName) {
-            case "sidebar.donation.list":
-                $limit = $this->scopeConfig->getValue(
-                    self::DONATION_CONFIGURATION_PRODUCT_LIMIT_SIDEBAR,
-                    ScopeInterface::SCOPE_STORE
-                );
-                break;
-            case "cms.donation.list":
-                $limit = $this->scopeConfig->getValue(
-                    self::DONATION_CONFIGURATION_PRODUCT_LIMIT_HOMEPAGE,
-                    ScopeInterface::SCOPE_STORE
-                );
-                break;
-            case "cart.donation.list":
-                $limit = $this->scopeConfig->getValue(
-                    self::DONATION_CONFIGURATION_PRODUCT_LIMIT_CART,
-                    ScopeInterface::SCOPE_STORE
-                );
-                break;
-        }
 
-        return (int) $limit;
-    }
 
-    /**
-     * @return int
-     */
-    public function isLayoutCheckoutEnabled()
-    {
-        return (int) $this->scopeConfig->getValue(
-            self::DONATION_CONFIGURATION_LAYOUT_CHECKOUT_ENABLED,
-            ScopeInterface::SCOPE_STORE
-        );
-    }
 
-    /**
-     * @return int
-     */
-    public function isLayoutCheckoutSidebarEnabled()
-    {
-        return (int) $this->scopeConfig->getValue(
-            self::DONATION_CONFIGURATION_LAYOUT_CHECKOUT_SIDEBAR_ENABLED,
-            ScopeInterface::SCOPE_STORE
-        );
-    }
 
-    /**
-     * @param $product
-     * @return string
-     */
-    public function getHtmlValidationClasses($product)
-    {
-        $range = 'digits-range-' . $this->getMinimalAmount($product) . '-' . $this->getMaximalAmount($product);
-        return (string) 'required input-text validate-number validate-digits-range ' . $range;
-    }
 }
