@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" ?>
 <!--
 /**
@@ -15,37 +14,4 @@
             </general>
         </fidesio_donation>
     </default>
-=======
-<?xml version="1.0" ?>
-<!--
-/**
- * Copyright © Experius. All rights reserved.
- * See LICENSE.txt for license details.
- */
--->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
-    <default>
-        <fidesio_donation>
-            <general>
-                <enabled>1</enabled>
-                <fixed_amounts>5,10,15,25,50</fixed_amounts>
-            </general>
-            <group id="imagedonation" translate="label" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label> Image Donation</label>
-                <clone_fields>1</clone_fields>
-                <clone_model>Magento\Catalog\Model\Config\CatalogClone\Media\Image</clone_model>
-                <field id="imagedonation" type="image" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label></label>
-                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
-                    <upload_dir config="system/filesystem/media" scope_info="1">fidesio/donation</upload_dir>
-                    <base_url type="media" scope_info="1">fidesio/donantion</base_url>
-                </field>
-                <field id="description_donantion" translate="description" type="editor" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Description</label>
-                    <frontend_model>Fidesio\Donation\Block\Adminhtml\System\Config\Form\Field\Editor</frontend_model>
-                </field>
-            </group>
-        </fidesio_donation>
-    </default>
->>>>>>> 54b879e416599ca04880f4c91613b8a8fcc40f9a
 </config>
