@@ -9,7 +9,7 @@
     <system>
         <section id="fidesio_donation" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
             <label>Fidesio Donation </label>
-            <tab>catalog</tab>
+            <tab>sales</tab>
             <resource>Fidesio_Donation::config_fidesio_donation</resource>
             <group id="general" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
                 <label>General</label>
