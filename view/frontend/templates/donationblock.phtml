@@ -3,30 +3,38 @@
     <section class="fidesio-donation">
         <header>
             <h3>
-                <?php echo __('Support a charity with your donation'); ?>
+                <?php echo $block->getDetailDonationBlock()['title']; ?>
             </h3>
         </header>
-        <p>
-            <?php echo __('Pick one of our favorite charities and donate'); ?>
-        </p>
-        <section class="fidesio-donation-product-list">
-            <header>
-                <h4><?php echo __('Charities that can use your support'); ?></h4>
-                <p class="fidesio-donation-mobile-instructions">
-                    <?php echo __('Click a Charity to support'); ?>
-                </p>
-            </header>
+        <div style="text-align: center; width: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 10px 2em;" class="container">
+        <div title="" style="" class="">
+            <img src="<?php echo $block->getMediaUrl(); ?>/fidesio/donation/<?php echo $block->getDetailDonationBlock()['image'];?>" alt="" class="" />
+        </div>
+        <div style=" " >
+            <select >
+                <option>Choisir un montant</option>
+                <?php foreach ($block->getFixedAmounts() as $amount=> $key):; ?>
+                <option><?php echo $block->getCurrencySymbol().' '.$amount; ?></option>
+                <?php endforeach;?>
+            </select>
 
-                <article
-                      <a title="" class="fidesio-donation-image-wrapper">
-                        <img src="" alt="" class="fidesio-donation-product-image" />
-                    </a>
-                    <a class="fidesio-donation-product-tocart">
-                        <?php echo __('I want to donate'); ?>
-                    </a>
-                </article>
+        </div>
+        <div style="" >
+            <?php echo $block->getDetailDonationBlock()['description']; ?>
+        </div>
+        </div>
 
-        </section>
+
+
+
+
+
+
+
+
+
+
+
     </section>
 
     <div class="fidesio-donation-modal">
@@ -38,12 +46,7 @@
             <?php echo $block->getBlockHtml('formkey'); ?>
             <div class="fidesio-donation-amounts" data-role="">
                 <div class="fidesio-donation-fixed-amounts">
-                    <?php foreach ($block->getFixedAmounts() as $fixedAmount => $viewFixedAmount) : ?>
-                        <input type="radio" name="amount_fixed" class="input-radio-amount-<?php echo $block->getIdentifier(); ?>" id="amount-fixed-<?php echo $fixedAmount; ?>-<?php echo $block->getIdentifier(); ?>" value="<?php echo $fixedAmount; ?>">
-                        <label for="amount-fixed-<?php echo $fixedAmount; ?>-<?php echo $block->getIdentifier(); ?>" class="fidesio-donation-amount-label" data-amount="<?php echo $fixedAmount; ?>">
-                            <span><?php echo $viewFixedAmount; ?></span>
-                        </label>
-                    <?php endforeach; ?>
+
                 </div>
                 <label class="label">
                     <span class="fidesio-donation-minimal-amount-label-<?php echo $block->getIdentifier(); ?>"><?php echo __('Choose your own Amount %1 (minimum %2)', $block->getCurrencySymbol()); ?></span>
@@ -71,6 +74,7 @@
             {
                 "popupContainer":".fidesio-donation-modal",
                 "identifier": "<?php echo $block->getIdentifier(); ?>",
+                 "productSelector":".fidesio-donation-block",
                 "inputRadioSelector": ".input-radio-amount-<?php echo $block->getIdentifier(); ?>",
                 "setAjaxRefreshOnSuccessMsg": "<?php echo __('The page will be refreshed.') ?>"
             }

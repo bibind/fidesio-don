@@ -22,8 +22,7 @@
 namespace Fidesio\Donation\Block\Checkout;
 
 use Fidesio\Donation\Helper\Data as DonationHelper;
-use Fidesio\Donation\Block\Donation\ListProductFactory as DonationProductsFactory;
-
+use Fidesio\Donation\Block\Donation\DonationBlock as BlockDonation;
 /**
  * Class LayoutProcessor
  * @package Fidesio\Donation\Block\Checkout
@@ -37,21 +36,18 @@ class LayoutProcessor implements \Magento\Checkout\Block\Checkout\LayoutProcesso
     private $donationHelper;
 
     /**
-     * @var \Fidesio\Donation\Block\Donation\ListProduct
-     */
-    private $donationProductsFactory;
-
-    /**
      * LayoutProcessor constructor.
-     * @param DonationHelper $donationHelper
-     * @param DonationProducts $donationProducts
+     * @var BlockDonation $BlockDonation
      */
+    public $blockDonation;
+
+
     public function __construct(
         DonationHelper $donationHelper,
-        DonationProductsFactory $donationProductsFactory
+        BlockDonation $blockDonation
     ) {
         $this->donationHelper = $donationHelper;
-        $this->donationProductsFactory = $donationProductsFactory;
+        $this->blockDonation = $blockDonation;
     }
 
     /**
@@ -79,21 +75,13 @@ class LayoutProcessor implements \Magento\Checkout\Block\Checkout\LayoutProcesso
      */
     public function getDonationForm($nameInLayout)
     {
-        $donationBlock = $this->getLayout()->createBlock(
-            'Magento\Cms\Block\Block'
-        );
-        $donationBlock->setTemplate('donationblock.phtml');
-        $donationBlock->setNameInLayout($nameInLayout);
-        $donationBlock->setAjaxRefreshOnSuccess(true);
 
-        $content = $donationBlock->toHtml();
-        $content .= "<script type=\"text/javascript\">jQuery('body').trigger('contentUpdated');</script>";
 
         $donationForm =
             [
                 'component' => 'Magento_Ui/js/form/components/html',
                 'config' => [
-                    'content'=> $content
+                    'content'=> $this->blockDonation->setTemplate('donationblock.phtml')->toHtml() . "<script type=\"text/javascript\">jQuery('body').trigger('contentUpdated');</script>"
                 ]
             ];
 

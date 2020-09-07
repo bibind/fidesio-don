@@ -37,7 +37,7 @@
                     <label></label>
                     <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
                     <upload_dir config="system/filesystem/media" scope_info="1">fidesio/donation</upload_dir>
-                    <base_url type="media" scope_info="1">fidesio/donantion</base_url>
+                    <base_url type="media" scope_info="1">fidesio/donation</base_url>
                 </field>
             </group>
 

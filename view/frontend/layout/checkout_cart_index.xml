@@ -2,8 +2,28 @@
 
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceBlock name="checkout.cart.totals.container">
-            <block class="Fidesio\Donation\Block\Donation\DonationBlock" name="cart.donation.block" after="checkout.cart.totals" template="donationblock.phtml" />
+        <referenceBlock name="checkout.cart.totals">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="block-totals" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <!-- Start of the main content that needs to be added-->
+                                <item name="donation_amount" xsi:type="array">
+                                    <!-- The path to our js file-->
+                                    <item name="component" xsi:type="string">Fidesio_Donation/js/view/checkout/summary/donation-sum</item>
+                                    <item name="sortOrder" xsi:type="string">20</item>
+                                    <item name="config" xsi:type="array">
+                                         <!-- Show custom donation_amount on order summary-->
+                                        <item name="donation_amount" xsi:type="string" translate="true">Donation</item>
+                                    </item>
+                                </item>
+                                <!--  End-->
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
         </referenceBlock>
     </body>
 </page>

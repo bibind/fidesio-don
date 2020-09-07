@@ -58,61 +58,28 @@ class DonationBlock extends \Magento\Framework\View\Element\Template
             $data
         );
     }
-
     /**
-     * @return \Magento\Catalog\Api\Data\ProductInterface[]
+     * get path url media
      */
-    public function getDetailDoantionBlock()
-    {
-        $pageSize = $this->donationHelper->getLimitByBlockName($this->_nameInLayout);
+    public function getMediaUrl(){
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        
+        $media_dir = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+            ->getStore()
+            ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
 
-        $searchCriteria = $this->searchCriteriaBuilder
-            ->addFilter('type_id', 'donation', 'eq')
-            ->addFilter('status', 1, 'eq')
-            ->setPageSize($pageSize)
-            ->setCurrentPage(1)
-            ->addSortOrder($this->sortOrder->setDirection('DESC')->setField('name'))
-            ->create();
-
-        $products = $this->productRepository->getList($searchCriteria);
-
-        $items = $products->getItems();
-
-        shuffle($items);
-
-        return $items;
+        return $media_dir;
     }
 
-
-
     /**
-     * @param $product
-     * @param array $additional
-     * @return string
+     * @return array
      */
-    public function getAddToCartUrl($product, $additional = [])
+    public function getDetailDonationBlock()
     {
-        if ($this->isAjaxEnabled()) {
-            return $this->getUrl('donation/cart/add', ['product' => $product->getEntityId()]);
-        }
-        return $this->cartHelper->getAddUrl($product, $additional);
-    }
+        $detailblock = $this->donationHelper->getDetailsBlockDonation();
 
 
-    /**
-     * Retrieve product image
-     *
-     * @param \Magento\Catalog\Model\Product $product
-     * @param string $imageId
-     * @param array $attributes
-     * @return \Magento\Catalog\Block\Product\Image
-     */
-    public function getImage($product, $imageId, $attributes = [])
-    {
-        return $this->imageBuilder->setProduct($product)
-            ->setImageId($imageId)
-            ->setAttributes($attributes)
-            ->create();
+        return $detailblock;
     }
 
     /**
