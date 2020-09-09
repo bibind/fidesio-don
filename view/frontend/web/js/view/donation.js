@@ -5,8 +5,9 @@ define([
     "mage/storage",
     "mage/validation",
     "uiComponent",
-    "Magento_Ui/js/modal/modal"
-], function ($, $t, ko, storage, validation, Component, modal) {
+    'Magento_Checkout/js/action/get-totals',
+
+], function ($, $t, ko, storage, validation, Component, getTotalsAction) {
 
     $.widget('mage.donation', {
 
@@ -26,95 +27,62 @@ define([
                 modalClass: 'fidesio_donation-modal-popup',
                 buttons: []
             }
+            $('html').on('change', '#fidesio-donation-checkbox', function () {
 
-            var popupContainer = $(this.options.popupContainer);
-            var pImage = $('.charity-image', popupContainer);
-            var pDescription = $('.charity-description', popupContainer);
-            var pForm = $('.charity-form', popupContainer);
-            var pInput = $('#custom-amount-input-' + this.options.identifier);
-            var pMinLabel = $('.fidesio-donation-minimal-amount-label-' + this.options.identifier);
-            var popup = modal(options, popupContainer);
+                if (this.checked) {
+                    $('.fidesio-donation-block-wrapper').addClass('visibleDonation')
 
-            this.addFormValidation();
-
-            if (this.options.ajaxCart) {
-                this.initAjaxCart();
-            }
-
-            $('html').on('click', this.options.productSelector, function () {
-                var charity = jQuery(this);
-                if (charity.data('productid') != '') {
-                    var title           = charity.data('title'),
-                        description     = charity.data('description'),
-                        imageurl        = charity.data('imageurl'),
-                        addtocarturl    = charity.data('addtocarturl');
-                        htmlvalidation  = charity.data('htmlvalidation');
-                        minimalamount  = charity.data('minimal-amount');
-
-                    self.resetRadioButtons();
-                    self.clearMessages();
-
-                    pImage.attr('src', imageurl).attr('alt', title);
-                    pDescription.html(description);
-                    pForm.attr('action', addtocarturl);
-                    pImage.attr('src', imageurl);
-                    pInput.removeClass();
-                    pInput.addClass(htmlvalidation);
-                    pMinLabel.text(minimalamount);
-
-                    $('.fidesio-donation-modal')
-                        .modal(options)
-                        .modal('openModal');
-
-                    $('.fidesio_donation-modal-popup .modal-title').text(title);
                 }
+                if (!this.checked) {
+                    $('.fidesio-donation-block-wrapper').removeClass('visibleDonation')
+                }
+
+
             });
 
-            $('html').on('change', this.options.inputRadioSelector, function () {
-                pInput.removeClass('required');
-                pInput.validation().valid();
-            });
-
-            $('html').on('change', '#custom-amount-input-' + this.options.identifier, function () {
-                pInput.validation().valid();
+            $('html').on('change', this.options.SelectAmount, function () {
+                var select = jQuery(this);
+                console.log(select.val());
+                self.initAjaxCart()
             });
 
         },
 
         initAjaxCart: function() {
             var self = this;
-            $(this.options.addToCartFormId).submit(function (e) {
 
-                if(!$(self.options.addToCartFormId).valid()) {
-                    return;
-                }
-
-                $.ajax({
-                    type: "POST",
-                    url: jQuery(self.options.addToCartFormId).attr('action'),
-                    data: jQuery(self.options.addToCartFormId).serialize(),
-                    showLoader: true,
-                    success: function(response) {
-                        self.clearMessages();
-                        if (response.success) {
-                            self.addMessage(response.success, 'success');
-                        }
-                        if (response.error) {
-                            self.addMessage(response.error, 'error');
-                        }
-                        if(response.success && self.options.setAjaxRefreshOnSuccess) {
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000);
-                        }
+            $.ajax({
+                type: "POST",
+                url: jQuery(self.options.addDonationFormId).attr('action'),
+                data: jQuery(self.options.addDonationFormId).serialize(),
+                showLoader: true,
+                success: function(response) {
+                    self.clearMessages();
+                    if (response.success) {
+                        console.log(response);
+                        console.log('dddd deferred')
+                        var deferred = $.Deferred();
+                        getTotalsAction([], deferred);
+                        self.addMessage(response.success, 'success');
                     }
-                });
-                e.preventDefault();
+                    if (response.error) {
+                        console.log(response)
+                    }
+                    if(response.success && self.options.setAjaxRefreshOnSuccess) {
+                        console.log(response)
+                        console.log('ffff')
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
+                    }
+                }
             });
+
+
         },
 
         clearMessages: function() {
-            $(this.options.addToCartFormId + ' .message').remove();
+            $(this.options.addDonationFormId + ' .message').remove();
         },
 
         addMessage: function(message, type) {
@@ -124,7 +92,7 @@ define([
             var messageHtml = '<div class="message">' +
                 '<div class="message '+ type +'">' + message + '</div>' +
                 '</div>';
-            $(this.options.addToCartFormId).prepend(messageHtml);
+            $(this.options.addDonationFormId).prepend(messageHtml);
         },
 
         resetRadioButtons: function () {
@@ -132,7 +100,7 @@ define([
         },
 
         addFormValidation: function () {
-            var addtoCartForm = $(this.options.addToCartFormId);
+            var addtoCartForm = $(this.options.addDonationFormId);
             addtoCartForm.mage('validation', {});
         }
 

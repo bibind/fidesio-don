@@ -58,12 +58,21 @@ class DonationBlock extends \Magento\Framework\View\Element\Template
             $data
         );
     }
+
+    /**
+     * @return string
+     */
+    public function getAddDonationUrl()
+    {
+
+            return $this->getUrl('donation/cart/adddonation');
+    }
     /**
      * get path url media
      */
     public function getMediaUrl(){
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        
+
         $media_dir = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
             ->getStore()
             ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
@@ -106,13 +115,6 @@ class DonationBlock extends \Magento\Framework\View\Element\Template
         return str_replace('.', '-', parent::getNameInLayout());
     }
 
-    /**
-     * @return string
-     */
-    public function getMinimalDonationAmount($product)
-    {
-        return $this->donationHelper->getCurrencySymbol() . ' ' . $this->donationHelper->getMinimalAmount($product);
-    }
 
     /**
      * @return string

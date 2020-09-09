@@ -13,12 +13,21 @@ define(
                 template: 'Fidesio_Donation/checkout/summary/donation-sum'
             },
             totals: quote.getTotals(),
+            isTaxDisplayedInGrandTotal: window.checkoutConfig.includeTaxInGrandTotal || false,
             isDisplayedDiscountTotal: function () {
                 return true;
             },
             getDiscountTotal: function () {
                 var price = 56;
-                return 45;
+                console.log('segment discount')
+                console.log(this.totals())
+                console.log('segment donation amount')
+                console.log(totals.getSegment('donation_amount').value)
+                console.log(totals)
+                console.log('quote')
+                console.log(quote)
+
+                return  totals.getSegment('donation_amount').value;
             }
         });
     }

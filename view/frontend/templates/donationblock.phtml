@@ -1,20 +1,23 @@
 <?php /* @var $block Fidesio\Donation\Block\Donation\DonationBlock */  ?>
 
     <section class="fidesio-donation">
+
+
+        <form method="POST" action=" <?php echo $block->getAddDonationUrl(); ?>" style="opacity: 3;" class="charity-form" id="fidesio-donation-product-addtocart-form-<?php echo $block->getIdentifier(); ?>">
+            <?php echo $block->getBlockHtml('formkey'); ?>
         <header>
-            <h3>
-                <?php echo $block->getDetailDonationBlock()['title']; ?>
-            </h3>
+            <input type="checkbox" id="fidesio-donation-checkbox" name="scales">
+            <label for="scales"><?php echo $block->getDetailDonationBlock()['title']; ?></label>
         </header>
-        <div style="text-align: center; width: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 10px 2em;" class="container">
+        <div style="opacity:0.2; text-align: center; width: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 10px 2em;" class="container fidesio-donation-block-wrapper">
         <div title="" style="" class="">
             <img src="<?php echo $block->getMediaUrl(); ?>/fidesio/donation/<?php echo $block->getDetailDonationBlock()['image'];?>" alt="" class="" />
         </div>
         <div style=" " >
-            <select >
+            <select id="fidesio-donation-amount-select" name="donation_amount" >
                 <option>Choisir un montant</option>
                 <?php foreach ($block->getFixedAmounts() as $amount=> $key):; ?>
-                <option><?php echo $block->getCurrencySymbol().' '.$amount; ?></option>
+                <option value="<?php echo $amount; ?>"><?php echo $block->getCurrencySymbol().' '.$amount; ?></option>
                 <?php endforeach;?>
             </select>
 
@@ -24,57 +27,21 @@
         </div>
         </div>
 
-
-
-
-
-
-
-
-
-
-
-
+        </form>
     </section>
 
-    <div class="fidesio-donation-modal">
-        <article>
-            <img src="" alt="" class="charity-image" />
-            <p class="charity-description"></p>
-        </article>
-        <form method="POST" class="charity-form" id="fidesio-donation-product-addtocart-form-<?php echo $block->getIdentifier(); ?>">
-            <?php echo $block->getBlockHtml('formkey'); ?>
-            <div class="fidesio-donation-amounts" data-role="">
-                <div class="fidesio-donation-fixed-amounts">
 
-                </div>
-                <label class="label">
-                    <span class="fidesio-donation-minimal-amount-label-<?php echo $block->getIdentifier(); ?>"><?php echo __('Choose your own Amount %1 (minimum %2)', $block->getCurrencySymbol()); ?></span>
-                </label>
-                <p class="fidesio-donation-custom-amount">
-                    <span class="custom-donation-amount-field">
-                        <span class="custom-amount-currency-symbol"><?php echo $block->getCurrencySymbol(); ?></span>
-                        <input id="custom-amount-input-<?php echo $block->getIdentifier(); ?>" name="amount" title="amount" class="input-text validate-number" type="text" value="">
-                    </span>
-                </p>
-                <p class="fidesio-donation-amount-notification">
-                    <?php echo __('The selected amount will be added to your shopping cart.'); ?>
-                </p>
-            </div>
-            <div class="fidesio-donation-form-actions">
-                <button type="submit" class="button charity-button action primary"><?php echo __('I want to donate this amount'); ?></button>
-            </div>
-        </form>
-    </div>
 
     <script type="text/x-magento-init">
     {
         "*": {
             "donation":
             {
-                "popupContainer":".fidesio-donation-modal",
+                "ContainerDonation":".fidesio-donation-block-wrapper",
                 "identifier": "<?php echo $block->getIdentifier(); ?>",
-                 "productSelector":".fidesio-donation-block",
+                 "CheckboxSelector":"#fidesio-donation-checkbox",
+                 "SelectAmount":"#fidesio-donation-amount-select",
+                 "addDonationFormId": "#fidesio-donation-product-addtocart-form-<?php echo $block->getIdentifier(); ?>",
                 "inputRadioSelector": ".input-radio-amount-<?php echo $block->getIdentifier(); ?>",
                 "setAjaxRefreshOnSuccessMsg": "<?php echo __('The page will be refreshed.') ?>"
             }

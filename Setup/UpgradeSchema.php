@@ -1,7 +1,7 @@
 <?php
 
 namespace Fidesio\Donation\Setup;
-
+use Fidesio\Donation\Setup\ShemaInformation;
 use Magento\Framework\Setup\UpgradeSchemaInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
@@ -27,7 +27,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
         $setup->getConnection()
             ->addColumn(
                 $setup->getTable($quote),
-                'donation_amount',
+                SchemaInformation::ATTRIBUTE_DONATION_AMOUNT,
                 [
                     'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                     'length' => 255,
@@ -38,7 +38,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
         $setup->getConnection()
             ->addColumn(
                 $setup->getTable($orderTable),
-                'donation_amount',
+                SchemaInformation::ATTRIBUTE_DONATION_AMOUNT,
                 [
                     'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                     'length' => 255,
@@ -50,7 +50,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
         $setup->getConnection()
             ->addColumn(
                 $setup->getTable($invoice),
-                'donation_amount',
+                SchemaInformation::ATTRIBUTE_DONATION_AMOUNT,
                 [
                     'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                     'length' => 255,
@@ -61,7 +61,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
         $setup->getConnection()
             ->addColumn(
                 $setup->getTable($orderGridTable),
-                'donation_amount',
+                SchemaInformation::ATTRIBUTE_DONATION_AMOUNT,
                 [
                     'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                     'length' => 255,

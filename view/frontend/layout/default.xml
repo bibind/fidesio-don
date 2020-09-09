@@ -10,8 +10,6 @@
         <css src="Fidesio_Donation::css/donation.css" />
     </head>
     <body>
-        <referenceContainer name="sidebar.additional">
-            <block class="Fidesio\Donation\Block\Donation\DonationBlock" name="sidebar.donation.block" before="-" template="donationblock.phtml" />
-        </referenceContainer>
+        
     </body>
 </page>

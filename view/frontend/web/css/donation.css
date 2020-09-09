@@ -173,6 +173,14 @@
     display: none;
 }
 
+.fidesio-donation-block-wrapper {
+
+}
+.visibleDonation {
+    opacity: 1!important;
+}
+
+
 @media (max-width: 380px) {
     .fidesio-donation-modal .charity-form .fidesio-donation-amounts .fidesio-donation-fixed-amounts  label.fidesio-donation-amount-label {
         margin: 5px;
