@@ -6,21 +6,25 @@ https://github.com/clean-docker/Magento2.git
 
 Pour pouvoir avoir des images avec les différentes version de php 7.0 /7.2/7.3 avec les différentes versions 
 de Magento. La version 2.1 de magento est compatible avec php 7.0
-Alors que les version superieur sont compatible avec php 7.1 et superieur.
+Alors que les versions superieur sont compatible avec php 7.1 et superieur.
 Il sera important de faire au moins deux images (deux dockerfiles)
 Pour pouvoir tester les différentes version du module dans les différents environnement.
+
 ###Installation du module
 
 private repository packagist
+
 Mettre dans votre composer.json de votre projet Magento2 (si vous avez déja repositories, le mettre dans ce tableau) :
- "repositories" :[   {
-            "type": "composer",
-            "url": "https://repo.packagist.com/bibind/"
-        },
-        {
-            "packagist.org": false
-        }  
-]
+
+     "repositories" :[   {
+                "type": "composer",
+                "url": "https://repo.packagist.com/bibind/"
+            },
+            {
+                "packagist.org": false
+            }  
+    ]
+
 et dans la partie require :
 
         "fidesio/module-donation": "dev-master"
